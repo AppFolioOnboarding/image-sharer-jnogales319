@@ -5,7 +5,6 @@ class WelcomeControllerTest < ActionDispatch::IntegrationTest
     get welcome_index_url
     assert_response :success
 
-    puts response.body
-    assert_select 'h1', count: 1, text: 'Bienvenidos a localhost:3000!'
+    assert_select 'a[href=?]', '/images/new', count: 1
   end
 end
