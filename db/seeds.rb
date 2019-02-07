@@ -1,7 +1,25 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+Image.create!([
+  { url: 'http://www.maoartcorner.com/wp-content/uploads/2018/08/Wretched-Rush.jpg' },
+  { url: 'http://www.maoartcorner.com/wp-content/uploads/2018/08/I-II-III.jpg' },
+  { url: 'http://www.maoartcorner.com/wp-content/uploads/2018/09/Faces.jpg' },
+  { url: 'http://www.maoartcorner.com/wp-content/uploads/2018/08/Lets-Go.jpg' },
+  { url: 'http://www.maoartcorner.com/wp-content/uploads/2018/08/Lead-the-Way.jpg' },
+  { url: 'http://www.maoartcorner.com/wp-content/uploads/2018/08/Winding.jpg' },
+  { url: 'http://www.maoartcorner.com/wp-content/uploads/2017/11/Shape-Study.jpg' },
+  { url: 'http://www.maoartcorner.com/wp-content/uploads/2017/11/Eyes.jpg' },
+  { url: 'http://www.maoartcorner.com/wp-content/uploads/2015/11/Rume.jpg' },
+  { url: 'http://www.maoartcorner.com/wp-content/uploads/2015/12/Non-Hum.jpg' },
+  { url: 'http://www.maoartcorner.com/wp-content/uploads/2017/11/Arcadeo-Overview.jpg' },
+  { url: 'http://www.maoartcorner.com/wp-content/uploads/2018/05/FrinPage.jpg' },
+  { url: 'http://www.maoartcorner.com/wp-content/uploads/2016/05/Levi.jpg' },
+  { url: 'http://www.maoartcorner.com/wp-content/uploads/2017/11/Scenes-2017.jpg' },
+  { url: 'http://www.maoartcorner.com/wp-content/uploads/2016/01/Hair-Clip-3.jpg' },
+  { url: 'http://www.maoartcorner.com/wp-content/uploads/2016/01/A-Whisper.jpg' },
+  { url: 'http://www.maoartcorner.com/wp-content/uploads/2015/11/IoTaj.jpg' },
+  { url: 'http://www.maoartcorner.com/wp-content/uploads/2017/11/Valley-of-Strings.jpg' },
+  { url: 'http://www.maoartcorner.com/wp-content/uploads/2017/11/Lemon-Lime.jpg' },
+  { url: 'http://www.maoartcorner.com/wp-content/uploads/2017/11/Arcadeo.jpg' },
+  { url: 'http://www.maoartcorner.com/wp-content/uploads/2017/11/Vortex.jpg' },
+  { url: 'http://www.maoartcorner.com/wp-content/uploads/2017/11/Spect-Shot.jpg' },
+  { url: 'http://www.maoartcorner.com/wp-content/uploads/2019/01/GlowFul.jpg' }
+])
