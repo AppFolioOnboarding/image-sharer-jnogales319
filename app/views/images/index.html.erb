@@ -4,6 +4,7 @@
   <% @images.each do |image| %>
     <div>
       <%= image_tag image.url, class: 'image__index_image', 'data-id': image.id %>
+      <%= link_to 'Delete', image, method: :delete, data: { id: image.id, confirm: 'Are you sure?' }, class: 'js-image__delete_btn' %>
     </div>
   <% end %>
 </tbody>
