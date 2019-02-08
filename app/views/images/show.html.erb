@@ -6,8 +6,10 @@
   <%= image_tag @image.url, class: 'js-image' %>
   <div>
     <strong>Tags:</strong>
-    <span class='js-tag-list'>
-      <%= @image.tag_list %>
+    <span>
+      <% @image.tags.each do |tag| %>
+        <%= link_to tag.name, images_url(tag: tag.name), class: 'js-tag-link' %>
+      <% end %>
     </span>
   </div>
 </p>
