@@ -4,4 +4,10 @@
     <%= @image.url %>
   </div>
   <%= image_tag @image.url, class: 'js-image' %>
+  <div>
+    <strong>Tags:</strong>
+    <span class='js-tag-list'>
+      <%= @image.tag_list %>
+    </span>
+  </div>
 </p>
