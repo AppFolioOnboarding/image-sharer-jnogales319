@@ -19,6 +19,7 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
     get images_url
 
     assert_select '.image__index_image', 1
+    assert_select '.js-image__delete_btn', 1
   end
 
   def test_index__images_ordered_newest_to_oldest
@@ -99,5 +100,15 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
     } }
 
     assert_redirected_to image_path(Image.last.id)
+  end
+
+  def test_destroy
+    deletion_image = Image.create!(url: @test_url)
+
+    assert_difference 'Image.count', -1 do
+      delete image_url(deletion_image.id)
+    end
+
+    assert_redirected_to images_url
   end
 end
