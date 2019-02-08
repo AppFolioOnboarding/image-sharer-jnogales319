@@ -3,6 +3,7 @@ require 'test_helper'
 class ImagesControllerTest < ActionDispatch::IntegrationTest
   def setup
     @test_url = 'http://www.maoartcorner.com/wp-content/uploads/2019/01/GlowFul.jpg'
+    @test_tag_list = 'tag,mrTag,tagerific'
   end
 
   def test_index__displays_create_new_link
@@ -49,6 +50,14 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
     assert_select '.js-image', 1
   end
 
+  def test_show__tag_is_shown
+    Image.create!(url: @test_url, tag_list: @test_tag_list)
+
+    get image_url(Image.last.id)
+
+    assert_select '.js-tag-list', 'tag, mrTag, tagerific'
+  end
+
   def test_new__basics_intact
     get new_image_url
     assert_response :success
@@ -67,7 +76,9 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
   end
 
   def test_create__proper_url_succeeds
-    post images_url, params: { 'image': { 'url': @test_url } }
+    post images_url, params: { 'image': {
+      'url': @test_url, 'tag_list': @test_tag_list
+    } }
 
     assert_redirected_to image_path(Image.last.id)
   end

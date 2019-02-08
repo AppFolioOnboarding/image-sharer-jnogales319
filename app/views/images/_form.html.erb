@@ -1,4 +1,5 @@
 <%= simple_form_for @image do |f| %>
     <%= f.input :url, input_html: { class: 'js-url-input' } %>
+    <%= f.input :tag_list, input_html: { class: 'js-tag-list-input' } %>
     <%= f.button :submit, class: 'js-submit-button' %>
 <% end %>
