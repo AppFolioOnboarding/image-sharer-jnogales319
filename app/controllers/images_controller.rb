@@ -1,6 +1,7 @@
 class ImagesController < ApplicationController
   def index
     @images = Image.order(id: :desc)
+    @images = @images.tagged_with(params[:tag]) if params[:tag].present?
   end
 
   def show

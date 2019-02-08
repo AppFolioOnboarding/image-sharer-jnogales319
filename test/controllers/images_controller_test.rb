@@ -10,7 +10,7 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
     get images_url
     assert_response :success
 
-    assert_select 'a[href=?]', '/images/new', count: 1
+    assert_select 'a[href=?]', new_image_url, count: 1
   end
 
   def test_index__shows_all_images
@@ -36,6 +36,17 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
     assert_equal([image3.id, image2.id, image1.id], image_tag_ids)
   end
 
+  def test_index__shows_images_with_queried_tag
+    Image.create!(url: @test_url)
+    tagged_image = Image.create!(url: @test_url, tag_list: @test_tag_list)
+
+    get images_url(tag: 'mrTag')
+
+    response_images = css_select '.image__index_image'
+    assert_equal 1, response_images.count
+    assert_equal tagged_image[:id], response_images[0][:'data-id'].to_i
+  end
+
   def test_show__invalid_record_number
     assert_raises(ActiveRecord::RecordNotFound) do
       get image_url(-1)
@@ -55,7 +66,14 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
 
     get image_url(Image.last.id)
 
-    assert_select '.js-tag-list', 'tag, mrTag, tagerific'
+    tag_links = css_select '.js-tag-link'
+    assert_equal tag_links.count, 3
+    assert_equal tag_links[0].text, 'tag'
+    assert_equal tag_links[0]['href'], images_url(tag: 'tag')
+    assert_equal tag_links[1].text, 'mrTag'
+    assert_equal tag_links[1]['href'], images_url(tag: 'mrTag')
+    assert_equal tag_links[2].text, 'tagerific'
+    assert_equal tag_links[2]['href'], images_url(tag: 'tagerific')
   end
 
   def test_new__basics_intact
