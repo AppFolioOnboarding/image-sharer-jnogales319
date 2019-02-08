@@ -1,11 +1,11 @@
 <p>
   <div class='js-image-url pb-4'>
-    <strong>Url:</strong>
+    <span class='font-weight-bold'>Url:</span>
     <%= @image.url %>
   </div>
   <%= image_tag @image.url, class: 'js-image' %>
   <div>
-    <strong>Tags:</strong>
+    <span class='font-weight-bold'>Tags:</span>
     <span>
       <% @image.tags.each do |tag| %>
         <%= link_to tag.name, images_url(tag: tag.name), class: 'js-tag-link' %>
