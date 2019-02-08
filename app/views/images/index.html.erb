@@ -1,0 +1,9 @@
+<%= link_to('Add an image +', { action: 'new', controller: 'images' }) %>
+
+<tbody>
+  <% @images.each do |image| %>
+    <div>
+      <%= image_tag image.url, class: 'image__index_image', 'data-id': image.id %>
+    </div>
+  <% end %>
+</tbody>
