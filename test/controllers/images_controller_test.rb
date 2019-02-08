@@ -10,7 +10,7 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
     get images_url
     assert_response :success
 
-    assert_select 'a[href=?]', '/images/new', count: 1
+    assert_select 'a[href=?]', new_image_url, count: 1
   end
 
   def test_index__shows_all_images
