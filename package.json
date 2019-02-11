@@ -29,6 +29,7 @@
     "webpack-dev-server": "^3.1.4"
   },
   "scripts": {
-    "test:react": "mocha --recursive --compilers js:babel-register --require ignore-styles app/javascript/**/test"
+    "test:react": "mocha --recursive --compilers js:babel-register --require ignore-styles app/javascript/**/test",
+    "test:watch": "mocha --watch --recursive --compilers js:babel-register --require ignore-styles app/javascript/**/test"
   }
 }
