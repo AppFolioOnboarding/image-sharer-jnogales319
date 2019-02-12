@@ -6,11 +6,12 @@ import { expect } from 'chai';
 import assert from 'assert';
 import FeedbackForm from '../../components/FeedbackForm';
 import Adapter from 'enzyme-adapter-react-16';
+import feedbackStore from '../../stores/FeedbackStore';
 configure({ adapter: new Adapter() });
 
 describe('<FeedbackForm />', () => {
   it('should display the form', () => {
-    const wrapper = shallow(<FeedbackForm />);
+    const wrapper = shallow(<FeedbackForm store={feedbackStore} />);
 
     const nameLabel = wrapper.find('[for="feedbackName"]');
     const nameInput = wrapper.find('#feedbackName');
@@ -26,7 +27,7 @@ describe('<FeedbackForm />', () => {
   });
 
   it('should handle value updates', () => {
-    const wrapper = shallow(<FeedbackForm />);
+    const wrapper = shallow(<FeedbackForm store={feedbackStore} />);
     var nameInput = wrapper.find('#feedbackName');
     var commentsInput = wrapper.find('#feedbackComments');
     const testName = 'test name';

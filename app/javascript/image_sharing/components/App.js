@@ -9,14 +9,14 @@ import PropTypes from 'prop-types';
 export default class App extends Component {
   /* Add Prop Types check*/
   static propTypes = {
-    store: PropTypes.instanceOf(FeedbackStore)
+    store: PropTypes.instanceOf(FeedbackStore).isRequired
   };
 
   render() {
     return (
       <div>
         <Header title={'Tell us what you think'} />
-        <FeedbackForm />
+        <FeedbackForm store={this.props.store} />
         <Footer />
       </div>
     )

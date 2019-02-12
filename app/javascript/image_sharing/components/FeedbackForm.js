@@ -2,23 +2,26 @@ import React, { Component } from 'react';
 import { Row, Col, Form, FormGroup, Label, Input } from 'reactstrap';
 import { observable, action } from 'mobx';
 import { observer } from 'mobx-react';
+import { FeedbackStore } from '../stores/FeedbackStore';
+import PropTypes from 'prop-types';
 
 @observer
 class FeedbackForm extends Component {
-  @observable userName = '';
-  @observable comments = '';
-
-  @action
-  onNameChange = (event) => {
-    this.userName = event.target.value;
+  static propTypes = {
+    store: PropTypes.instanceOf(FeedbackStore).isRequired
   };
 
-  @action
+  onNameChange = (event) => {
+    this.props.store.setName(event.target.value);
+  };
+
   onCommentsChange = (event) => {
-    this.comments = event.target.value;
+    this.props.store.setComments(event.target.value);
   };
 
   render() {
+    const store = this.props.store;
+
     return (
       <Form>
         <FormGroup>
@@ -26,7 +29,7 @@ class FeedbackForm extends Component {
           <Input
             id="feedbackName"
             onChange={this.onNameChange}
-            value={this.userName}
+            value={store.userName}
           />
         </FormGroup>
         <FormGroup>
@@ -35,7 +38,7 @@ class FeedbackForm extends Component {
             id="feedbackComments"
             onChange={this.onCommentsChange}
             type="textarea"
-            value={this.comments}
+            value={store.comments}
           />
         </FormGroup>
         <Input className="btn btn-primary js-feedback-submit" type="submit" />
