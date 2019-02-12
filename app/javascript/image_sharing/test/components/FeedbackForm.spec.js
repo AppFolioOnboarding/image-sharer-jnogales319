@@ -24,4 +24,20 @@ describe('<FeedbackForm />', () => {
     assert.strictEqual(commentsInput.length, 1);
     assert.strictEqual(submitButton.length, 1);
   });
+
+  it('should handle value updates', () => {
+    const wrapper = shallow(<FeedbackForm />);
+    var nameInput = wrapper.find('#feedbackName');
+    var commentsInput = wrapper.find('#feedbackComments');
+    const testName = 'test name';
+    const testComment = 'test comment';
+
+    nameInput.simulate('change', { target: { value: testName } });
+    commentsInput.simulate('change', { target: { value: testComment } });
+    nameInput = wrapper.find('#feedbackName');
+    commentsInput = wrapper.find('#feedbackComments');
+
+    assert.strictEqual(nameInput.prop('value'), testName);
+    assert.strictEqual(commentsInput.prop('value'), testComment);
+  });
 });
