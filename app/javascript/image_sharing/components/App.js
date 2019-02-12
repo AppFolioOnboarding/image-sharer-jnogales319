@@ -2,10 +2,16 @@ import React, { Component } from 'react';
 import { inject } from 'mobx-react';
 import Header from './Header';
 import FeedbackForm from './FeedbackForm';
+import { FeedbackStore } from '../stores/FeedbackStore';
 import Footer from "./Footer";
+import PropTypes from 'prop-types';
 
-class App extends Component {
+export default class App extends Component {
   /* Add Prop Types check*/
+  static propTypes = {
+    store: PropTypes.instanceOf(FeedbackStore)
+  };
+
   render() {
     return (
       <div>
@@ -17,6 +23,3 @@ class App extends Component {
   }
 }
 
-export default inject(
-  'stores'
-)(App);

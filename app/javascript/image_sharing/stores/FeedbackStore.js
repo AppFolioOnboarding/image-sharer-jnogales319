@@ -2,4 +2,4 @@ export class FeedbackStore {
   /* Implement your feedback store*/
 }
 
-export default FeedbackStore;
+export default new FeedbackStore();
