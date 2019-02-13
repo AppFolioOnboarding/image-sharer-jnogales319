@@ -1,21 +1,25 @@
 import React, { Component } from 'react';
 import { inject } from 'mobx-react';
 import Header from './Header';
+import FeedbackForm from './FeedbackForm';
+import { FeedbackStore } from '../stores/FeedbackStore';
 import Footer from "./Footer";
+import PropTypes from 'prop-types';
 
-class App extends Component {
+export default class App extends Component {
   /* Add Prop Types check*/
+  static propTypes = {
+    store: PropTypes.instanceOf(FeedbackStore).isRequired
+  };
+
   render() {
     return (
       <div>
         <Header title={'Tell us what you think'} />
-          /* Put your components here: Flash Message, Form, Footer */
+        <FeedbackForm store={this.props.store} />
         <Footer />
       </div>
     )
   }
 }
 
-export default inject(
-  'stores'
-)(App);
