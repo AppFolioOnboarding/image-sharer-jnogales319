@@ -10,13 +10,19 @@ import feedbackStore from '../../stores/FeedbackStore';
 configure({ adapter: new Adapter() });
 
 describe('<FeedbackForm />', () => {
-  it('should display the form', () => {
-    const wrapper = shallow(<FeedbackForm store={feedbackStore} />);
+  let wrapper;
+  let nameInput;
+  let commentsInput;
 
+  beforeEach(() => {
+    wrapper = shallow(<FeedbackForm store={feedbackStore} />);
+    nameInput = wrapper.find('#feedbackName');
+    commentsInput = wrapper.find('#feedbackComments');
+  })
+
+  it('should display the form', () => {
     const nameLabel = wrapper.find('[for="feedbackName"]');
-    const nameInput = wrapper.find('#feedbackName');
     const commentsLabel = wrapper.find('[for="feedbackComments"]');
-    const commentsInput = wrapper.find('#feedbackComments');
     const submitButton = wrapper.find('.js-feedback-submit');
 
     assert.strictEqual(nameLabel.prop('children'), 'Name');
@@ -27,9 +33,6 @@ describe('<FeedbackForm />', () => {
   });
 
   it('should handle value updates', () => {
-    const wrapper = shallow(<FeedbackForm store={feedbackStore} />);
-    var nameInput = wrapper.find('#feedbackName');
-    var commentsInput = wrapper.find('#feedbackComments');
     const testName = 'test name';
     const testComment = 'test comment';
 
