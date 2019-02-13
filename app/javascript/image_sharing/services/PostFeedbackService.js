@@ -1,7 +1,11 @@
 import { post } from "../utils/helper";
 
 export class PostFeedbackService {
-  /* Implement your service */
+  feedbackUrl = '/api/feedbacks';
+
+  postFeedback(userName, comments) {
+    return post(this.feedbackUrl, {'userName': userName, 'comments': comments});
+  }
 }
 
-export default PostFeedbackService;
+export default new PostFeedbackService();

@@ -8,7 +8,8 @@ import PropTypes from 'prop-types';
 @observer
 class FeedbackForm extends Component {
   static propTypes = {
-    store: PropTypes.instanceOf(FeedbackStore).isRequired
+    store: PropTypes.instanceOf(FeedbackStore).isRequired,
+    onSubmit: PropTypes.func.isRequired
   };
 
   onNameChange = (event) => {
@@ -41,7 +42,10 @@ class FeedbackForm extends Component {
             value={store.comments}
           />
         </FormGroup>
-        <Input className="btn btn-primary js-feedback-submit" type="submit" />
+        <Input
+          className="btn btn-primary js-feedback-submit"
+          onClick={this.props.onSubmit}
+          type="submit" />
       </Form>
     )
   }

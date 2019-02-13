@@ -7,6 +7,7 @@ import assert from 'assert';
 import FeedbackForm from '../../components/FeedbackForm';
 import Adapter from 'enzyme-adapter-react-16';
 import feedbackStore from '../../stores/FeedbackStore';
+import App from '../../components/App';
 configure({ adapter: new Adapter() });
 
 describe('<FeedbackForm />', () => {
@@ -15,7 +16,7 @@ describe('<FeedbackForm />', () => {
   let commentsInput;
 
   beforeEach(() => {
-    wrapper = shallow(<FeedbackForm store={feedbackStore} />);
+    wrapper = shallow(<FeedbackForm store={feedbackStore} onSubmit={new App().onFeedbackSubmit} />);
     nameInput = wrapper.find('#feedbackName');
     commentsInput = wrapper.find('#feedbackComments');
   })
