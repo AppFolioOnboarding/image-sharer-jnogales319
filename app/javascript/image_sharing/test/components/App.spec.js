@@ -15,12 +15,19 @@ import sinon from 'sinon';
 configure({ adapter: new Adapter() });
 
 describe('<App />', () => {
-  let sandbox;
   let wrapper;
+  let appInstance;
+  let propStore;
+  let sandbox;
+  let eventStub;
 
   beforeEach(() => {
     wrapper = shallow(<App store={feedbackStore} />);
+    appInstance = wrapper.instance();
+    propStore = appInstance.props.store;
+
     sandbox = sinon.createSandbox();
+    eventStub = { preventDefault: sandbox.stub() };
   });
 
   afterEach(() => {
@@ -39,15 +46,12 @@ describe('<App />', () => {
   });
 
   it('should handle feedback submission', async () => {
-    const appInstance = wrapper.instance();
-    const propStore = appInstance.props.store;
     const testName = 'test name';
     const testComments = 'test comments';
     propStore.userName = testName;
     propStore.comments = testComments;
     const expectedResponse = 'response';
 
-    const eventStub = { preventDefault: sandbox.stub() };
     const postFeedbackStub =
       sandbox.stub(postFeedbackService, "postFeedback").returns({ message: expectedResponse});
     await appInstance.onFeedbackSubmit(eventStub);
@@ -60,11 +64,8 @@ describe('<App />', () => {
   });
 
   it('should handle feedback submission failure', async () => {
-    const appInstance = wrapper.instance();
-    const propStore = appInstance.props.store;
     const exceptionText = "This is an exception";
 
-    const eventStub = { preventDefault: sandbox.stub() };
     sandbox.stub(postFeedbackService, "postFeedback").throws(exceptionText);
     await appInstance.onFeedbackSubmit(eventStub);
     wrapper.update();
@@ -74,12 +75,9 @@ describe('<App />', () => {
   });
 
   it('should clear fields after submitting', async() => {
-    const appInstance = wrapper.instance();
-    const propStore = appInstance.props.store;
     propStore.userName = 'test name';
     propStore.comments = 'test comments';
 
-    const eventStub = { preventDefault: sandbox.stub() };
     sandbox.stub(postFeedbackService, "postFeedback");
     await appInstance.onFeedbackSubmit(eventStub);
     wrapper.update();
