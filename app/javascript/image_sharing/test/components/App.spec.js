@@ -41,8 +41,10 @@ describe('<App />', () => {
   it('should handle feedback submission', async () => {
     const appInstance = wrapper.instance();
     const propStore = appInstance.props.store;
-    propStore.userName = 'test name';
-    propStore.comments = 'test comments';
+    const testName = 'test name';
+    const testComments = 'test comments';
+    propStore.userName = testName;
+    propStore.comments = testComments;
     const expectedResponse = 'response';
 
     const eventStub = { preventDefault: sandbox.stub() };
@@ -52,7 +54,7 @@ describe('<App />', () => {
     wrapper.update();
 
     assert(eventStub.preventDefault.calledOnce);
-    assert(postFeedbackStub.calledOnceWith(propStore.userName, propStore.comments));
+    assert(postFeedbackStub.calledOnceWith(testName, testComments));
     assert.strictEqual(propStore.flashMessage, expectedResponse);
     assert.strictEqual(propStore.flashSuccess, true);
   });
@@ -69,5 +71,20 @@ describe('<App />', () => {
 
     assert.strictEqual(propStore.flashMessage, exceptionText);
     assert.strictEqual(propStore.flashSuccess, false);
+  });
+
+  it('should clear fields after submitting', async() => {
+    const appInstance = wrapper.instance();
+    const propStore = appInstance.props.store;
+    propStore.userName = 'test name';
+    propStore.comments = 'test comments';
+
+    const eventStub = { preventDefault: sandbox.stub() };
+    sandbox.stub(postFeedbackService, "postFeedback");
+    await appInstance.onFeedbackSubmit(eventStub);
+    wrapper.update();
+
+    assert.strictEqual(propStore.userName, '');
+    assert.strictEqual(propStore.comments, '');
   });
 });

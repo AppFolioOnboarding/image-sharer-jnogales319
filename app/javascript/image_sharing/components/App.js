@@ -27,6 +27,9 @@ export default class App extends Component {
       propStore.setFlashMessage(response.message, true);
     } catch(e) {
       propStore.setFlashMessage(e.name, false);
+    } finally {
+      propStore.setName('');
+      propStore.setComments('');
     }
   };
 
