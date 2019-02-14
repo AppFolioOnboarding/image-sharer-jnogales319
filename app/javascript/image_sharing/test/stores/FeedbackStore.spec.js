@@ -34,9 +34,11 @@ describe('<FeedbackStore />', () => {
 
   it('should set flashMessage properly', () => {
     const testMessage = 'This is a flash message!';
+    const isSuccess = true;
 
-    feedbackStore.setFlashMessage(testMessage);
+    feedbackStore.setFlashMessage(testMessage, isSuccess);
 
     assert.strictEqual(feedbackStore.flashMessage, testMessage);
+    assert.strictEqual(feedbackStore.flashSuccess, isSuccess);
   });
 });

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { Alert } from 'reactstrap';
 import { inject } from 'mobx-react';
 import Header from './Header';
 import FeedbackForm from './FeedbackForm';
+import FeedbackMessage from './FeedbackMessage';
 import { FeedbackStore } from '../stores/FeedbackStore';
 import Footer from "./Footer";
 import { observable, action } from 'mobx';
@@ -20,17 +20,20 @@ export default class App extends Component {
     const propStore = this.props.store;
     const userName = propStore.userName;
     const comments = propStore.comments;
-
     event.preventDefault();
-    var response = await postFeedbackService.postFeedback(userName, comments);
-    propStore.setFlashMessage(response.message);
+
+    try {
+      var response = await postFeedbackService.postFeedback(userName, comments);
+      propStore.setFlashMessage(response.message, true);
+    } catch(e) {
+      propStore.setFlashMessage(e.name, false);
+    }
   };
 
   render() {
     return (
       <div>
-        {this.props.store.flashMessage &&
-          <Alert color="success">{this.props.store.flashMessage}</Alert>}
+        <FeedbackMessage store={this.props.store} />
         <Header title={'Tell us what you think'} />
         <FeedbackForm store={this.props.store} onSubmit={this.onFeedbackSubmit} />
         <Footer />

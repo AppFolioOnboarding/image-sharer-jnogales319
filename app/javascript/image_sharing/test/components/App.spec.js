@@ -54,7 +54,20 @@ describe('<App />', () => {
     assert(eventStub.preventDefault.calledOnce);
     assert(postFeedbackStub.calledOnceWith(propStore.userName, propStore.comments));
     assert.strictEqual(propStore.flashMessage, expectedResponse);
-    const alert = wrapper.find('Alert');
-    assert.strictEqual(alert.prop('children'), expectedResponse);
+    assert.strictEqual(propStore.flashSuccess, true);
+  });
+
+  it('should handle feedback submission failure', async () => {
+    const appInstance = wrapper.instance();
+    const propStore = appInstance.props.store;
+    const exceptionText = "This is an exception";
+
+    const eventStub = { preventDefault: sandbox.stub() };
+    sandbox.stub(postFeedbackService, "postFeedback").throws(exceptionText);
+    await appInstance.onFeedbackSubmit(eventStub);
+    wrapper.update();
+
+    assert.strictEqual(propStore.flashMessage, exceptionText);
+    assert.strictEqual(propStore.flashSuccess, false);
   });
 });

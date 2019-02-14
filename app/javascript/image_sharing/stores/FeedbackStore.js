@@ -4,6 +4,7 @@ export class FeedbackStore {
   @observable userName = '';
   @observable comments = '';
   @observable flashMessage;
+  @observable flashSuccess;
 
   @action
   setName(userName) {
@@ -16,8 +17,9 @@ export class FeedbackStore {
   }
 
   @action
-  setFlashMessage(flashMessage) {
+  setFlashMessage(flashMessage, isSuccess) {
     this.flashMessage = flashMessage;
+    this.flashSuccess = isSuccess;
   }
 }
 
