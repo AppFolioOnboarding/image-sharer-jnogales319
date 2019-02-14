@@ -38,17 +38,23 @@ describe('<App />', () => {
     assert.strictEqual(footer.length, 1)
   });
 
-  it('should handle feedback submission', () => {
+  it('should handle feedback submission', async () => {
     const appInstance = wrapper.instance();
     const propStore = appInstance.props.store;
     propStore.userName = 'test name';
     propStore.comments = 'test comments';
+    const expectedResponse = 'response';
 
     const eventStub = { preventDefault: sandbox.stub() };
-    const postFeedbackStub = sandbox.stub(postFeedbackService, "postFeedback");
-    appInstance.onFeedbackSubmit(eventStub);
+    const postFeedbackStub =
+      sandbox.stub(postFeedbackService, "postFeedback").returns({ message: expectedResponse});
+    await appInstance.onFeedbackSubmit(eventStub);
+    wrapper.update();
 
     assert(eventStub.preventDefault.calledOnce);
     assert(postFeedbackStub.calledOnceWith(propStore.userName, propStore.comments));
+    assert.strictEqual(propStore.flashMessage, expectedResponse);
+    const alert = wrapper.find('Alert');
+    assert.strictEqual(alert.prop('children'), expectedResponse);
   });
 });

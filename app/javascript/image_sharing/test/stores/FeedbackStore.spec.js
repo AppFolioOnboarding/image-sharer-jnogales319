@@ -31,4 +31,12 @@ describe('<FeedbackStore />', () => {
 
     assert.strictEqual(feedbackStore.comments, testComment);
   });
+
+  it('should set flashMessage properly', () => {
+    const testMessage = 'This is a flash message!';
+
+    feedbackStore.setFlashMessage(testMessage);
+
+    assert.strictEqual(feedbackStore.flashMessage, testMessage);
+  });
 });

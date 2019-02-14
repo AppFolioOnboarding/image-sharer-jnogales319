@@ -3,6 +3,7 @@ import { observable, action } from 'mobx';
 export class FeedbackStore {
   @observable userName = '';
   @observable comments = '';
+  @observable flashMessage;
 
   @action
   setName(userName) {
@@ -12,6 +13,11 @@ export class FeedbackStore {
   @action
   setComments(comments) {
     this.comments = comments;
+  }
+
+  @action
+  setFlashMessage(flashMessage) {
+    this.flashMessage = flashMessage;
   }
 }
 
